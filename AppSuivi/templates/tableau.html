@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Suivi-Évaluation</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body { background-color: #f8fafc; }
+  </style>
+</head>
+<body class="flex h-screen">
+
+  <!-- Sidebar -->
+  <aside class="w-64 bg-white shadow-lg p-4 flex flex-col">
+    <h2 class="text-xl font-bold mb-6">Suivi-Évaluation</h2>
+    <nav class="flex-1">
+      <ul class="space-y-4">
+        <li><a href="{% url 'dashboard' %}" class="block text-gray-700 hover:text-blue-500">🏠 Dashboard</a></li>
+        <li><a href="#" class="block text-gray-700 hover:text-blue-500">📁 Projets</a></li>
+        <li><a href="#" class="block text-gray-700 hover:text-blue-500">📊 Evaluations</a></li>
+        <li><a href="#" class="block text-gray-700 hover:text-blue-500">🚩 Risques</a></li>
+        <li><a href="#" class="block text-gray-700 hover:text-blue-500">📄 Rapports</a></li>
+        <li><a href="#" class="block text-gray-700 hover:text-blue-500">📄 {% for projet in projets %}
+          <li>
+              <a href="{% url 'detailprojet' projet.id %}">{{ projet.nom }}</a>
+          </li>
+      {% endfor %}
+      </a></li>
+        <li><a href="{% url 'depense' %}" class="block text-gray-700 hover:text-blue-500">📄 Depense</a></li>
+        <li><a href="{% url 'recette' %}" class="block text-gray-700 hover:text-blue-500">📄 Recette</a></li>
+        <li><a href="#" class="block text-gray-700 hover:text-blue-500">👥 Équipe</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main -->
+  <main class="flex-1 p-6 overflow-y-auto">
+
+    <!-- Header -->
+    <header class="flex justify-between items-center mb-6">
+      <h1 class="text-2xl font-bold">Tableau de bord</h1>
+      <div class="flex items-center space-x-4">
+        <button class="bg-blue-500 text-white p-2 rounded-full">🔔</button>
+        <div class="bg-gray-200 p-2 rounded-full">👤</div>
+      </div>
+    </header>
+
+    <!-- KPI Cards -->
+    <div class="grid grid-cols-4 gap-4 mb-6">
+      <div class="bg-white p-4 rounded-lg shadow">Budget Utilisé: <strong>78%</strong></div>
+      <div class="bg-white p-4 rounded-lg shadow">Projets Actifs: <strong>12</strong></div>
+      <div class="bg-white p-4 rounded-lg shadow">Projets Rentables: <strong>9</strong></div>
+      <div class="bg-white p-4 rounded-lg shadow">Risque Total: <strong>3</strong></div>
+    </div>
+
+    <!-- Graphs -->
+    <div class="grid grid-cols-2 gap-6 mb-6">
+      <div class="bg-white p-4 rounded-lg shadow">
+        <canvas id="lineChart"></canvas>
+      </div>
+      <div class="bg-white p-4 rounded-lg shadow">
+        <canvas id="pieChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Recent Activities -->
+    <div class="bg-white p-4 rounded-lg shadow">
+      <h2 class="text-lg font-bold mb-4">Activités Récentes</h2>
+      <ul class="space-y-2">
+        <li>✅ Rapport hebdomadaire du projet Hôpital A validé</li>
+        <li>⚠️ Risque identifié sur le projet Centre de Santé B</li>
+        <li>📄 Nouvelle évaluation ajoutée pour Projet C</li>
+      </ul>
+    </div>
+
+  </main>
+
+  <script>
+    // Line Chart
+    new Chart(document.getElementById('lineChart'), {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Juin'],
+        datasets: [{
+          label: 'Évolution du Projet',
+          data: [30, 50, 45, 60, 70, 90],
+          borderColor: '#3b82f6',
+          backgroundColor: 'rgba(59,130,246,0.2)'
+        }]
+      }
+    });
+
+    // Pie Chart
+    new Chart(document.getElementById('pieChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Rentable', 'Non Rentable'],
+        datasets: [{
+          data: [70, 30],
+          backgroundColor: ['#10b981', '#ef4444']
+        }]
+      }
+    });
+  </script>
+
+</body>
+</html>

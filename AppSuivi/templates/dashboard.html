@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Suivi des Projets</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+
+    <h1 class="text-3xl font-bold mb-6">📊 Tableau de Suivi des Projets</h1> <td class="py-3 px-4">
+        <a href="{% url 'tableau' %}" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">Retour au tableau de bord</a>
+    </td>
+
+    <table class="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
+        <thead class="bg-blue-500 text-white">
+            <tr>
+                <th class="py-3 px-4">Projet</th>
+                <th class="py-3 px-4">Budget Prévu</th>
+                <th class="py-3 px-4">Dépenses</th>
+                <th class="py-3 px-4">Recettes</th>
+                <th class="py-3 px-4">Salaires</th>
+                <th class="py-3 px-4">Résultat Net</th>
+                <th class="py-3 px-4">Rentabilité</th>
+                <th class="py-3 px-4">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in data %}
+            <tr class="border-b hover:bg-gray-100">
+                <td class="py-3 px-4 font-semibold">{{ item.projet.nom }}</td>
+                <td class="py-3 px-4">{{ item.projet.budget_prevu }} Fbu</td>
+                <td class="py-3 px-4 text-red-600">{{ item.depenses }} Fbu</td>
+                <td class="py-3 px-4 text-green-600">{{ item.recettes }} Fbu</td>
+                <td class="py-3 px-4 text-green-600">{{ item.salaires }} Fbu</td>
+                <td class="py-3 px-4">
+                    {% if item.resultat >= 0 %}
+                        <span class="text-green-700">+{{ item.resultat }} Fbu</span>
+                    {% else %}
+                        <span class="text-red-700">{{ item.resultat }} Fbu</span>
+                    {% endif %}
+                </td>
+                <td class="py-3 px-4">
+                    {% if item.rentabilite == "Rentable" %}
+                        <span class="bg-green-200 text-green-800 py-1 px-2 rounded">✅ Rentable</span>
+                    {% elif item.rentabilite == "Non rentable" %}
+                        <span class="bg-red-200 text-red-800 py-1 px-2 rounded">❌ Non rentable</span>
+                    {% else %}
+                        <span class="bg-gray-300 text-gray-800 py-1 px-2 rounded">🕒 Non évalué</span>
+                    {% endif %}
+                </td>
+                <td class="py-3 px-4">
+                    <a href="{% url 'evaluer_projet' item.projet.id %}" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">Évaluer</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>

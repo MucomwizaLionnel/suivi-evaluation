@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Suivi des Projets</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+
+    <h1 class="text-3xl font-bold mb-6">📊 Tableau de Suivi des Projets</h1> <td class="py-3 px-4">
+        <a href="{% url 'tableau' %}" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">Retour au tableau de bord</a>
+        <a href="{% url 'ajouter_recette' %}" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">Ajouter les recettes</a>
+    </td>
+
+    <table class="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
+        <thead class="bg-blue-500 text-white">
+            <tr>
+                <th class="py-3 px-4">Projet</th>
+                <th class="py-3 px-4">Montant</th>
+                <th class="py-3 px-4">description</th>
+                <th class="py-3 px-4">Date</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            {% for depense in depenses %}
+            <tr class="border-b hover:bg-gray-100">
+                <td class="py-3 px-4 font-semibold">{{ depense.projet.nom }}</td>
+                <td class="py-3 px-4">{{ depense.montant}} Fbu</td>
+                <td class="py-3 px-4 text-red-600">{{ depense.description }} Fbu</td>
+                <td class="py-3 px-4 text-green-600">{{ depense.date }} Fbu</td>
+              
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>
