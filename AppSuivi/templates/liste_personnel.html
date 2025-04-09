@@ -10,26 +10,27 @@
 
     <h1 class="text-3xl font-bold mb-6">📊 Tableau de Suivi des Projets</h1> <td class="py-3 px-4">
         <a href="{% url 'tableau' %}" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">Retour au tableau de bord</a>
-        <a href="{% url 'depense' %}" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">Liste des depenses</a>
+        <a href="{% url 'ajouter_recette' %}" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">Ajouter les recettes</a>
     </td>
 
     <table class="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
         <thead class="bg-blue-500 text-white">
             <tr>
-                <th class="py-3 px-4">Projet</th>
-                <th class="py-3 px-4">Montant</th>
-                <th class="py-3 px-4">description</th>
-                <th class="py-3 px-4">Date</th>
+                <th class="py-3 px-4">user</th>
+                <th class="py-3 px-4">Fonction</th>
+                <th class="py-3 px-4">Telephone</th>
+                <th class="py-3 px-4">Salaire</th>
                
             </tr>
         </thead>
         <tbody>
-            {% for depense in depenses %}
+            {% for personnel in personnels %}
             <tr class="border-b hover:bg-gray-100">
-                <td class="py-3 px-4 font-semibold">{{ depense.projet.nom }}</td>
-                <td class="py-3 px-4">{{ depense.montant}} Fbu</td>
-                <td class="py-3 px-4 text-red-600">{{ depense.description }} Fbu</td>
-                <td class="py-3 px-4 text-green-600">{{ depense.date }} Fbu</td>
+                <td class="py-3 px-4 font-semibold">{{ personnel.user}}</td>
+                <td class="py-3 px-4">{{ personnel.fonction}} </td>
+                <td class="py-3 px-4">{{ personnel.telephone}} </td>
+                <td class="py-3 px-4 text-red-600">{{ personnel.salaire }} Fbu</td>
+              
               
             </tr>
             {% endfor %}

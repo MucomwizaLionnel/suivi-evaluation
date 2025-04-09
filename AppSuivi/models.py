@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.utils import timezone
+from datetime import datetime;
 
 
 class Personnel(models.Model):
@@ -8,9 +9,15 @@ class Personnel(models.Model):
     fonction = models.CharField(max_length=100)
     telephone = models.CharField(max_length=20, blank=True, null=True)
     salaire = models.DecimalField(max_digits=10, decimal_places=2)
-
+    date_naissance =models.DateField(default=datetime.now,null=True)
+    genre =models.CharField(max_length=100,null=True,choices=[('M','M'),('F', 'F')])
+    role = models.CharField(max_length=50, null=True,choices=[('Choisisez','Choisisez'),('Administrateur', 'Administrateur'),('Assistant', 'Assistant'), ('Consultant', 'Consultant'), ('Technicien', 'Technicien')])
+   
+    address=models.CharField(max_length=100, null = True)
+    
+    date_enre=models.DateField(default=datetime.now,null=True)
     def __str__(self):
-        return self.user
+        return self.user.username
 
 
 class Projet(models.Model):
@@ -95,7 +102,7 @@ class RapportSuivi(models.Model):
     recommandations = models.TextField()
 
     def __str__(self):
-        return f"Rapport - {self.projet.titre} - {self.date}"
+        return f"Rapport - {self.resume_activites} - {self.date}"
 
 class Justificatif(models.Model):
     depense = models.ForeignKey(Depense, on_delete=models.CASCADE)
@@ -121,3 +128,14 @@ class AffectationPersonnel(models.Model):
 
     def __str__(self):
         return f"{self.personnel} affecté à {self.projet}"
+
+class Paiement(models.Model):
+    personnel = models.ForeignKey(Personnel, on_delete=models.CASCADE)
+    montant = models.DecimalField(max_digits=10, decimal_places=2)
+    date_paiement = models.DateField()
+    description = models.TextField(blank=True)
+    code_bordereau = models.CharField(max_length=100, blank=True)
+
+    def __str__(self):
+        return f"{self.personnel} - {self.date_paiement} - {self.montant} FBU"
+

@@ -11,8 +11,12 @@ def detail_projet(request, id):
     total_recettes = Recette.objects.filter(projet=projet).aggregate(total=Sum('montant'))['total'] or 0
     total_depenses = Depense.objects.filter(projet=projet).aggregate(total=Sum('montant'))['total'] or 0
 
+    # Trouver tous les personnels affectés à ce projet
     affectations = AffectationPersonnel.objects.filter(projet=projet)
-    total_salaires = sum(a.personnel.salaire for a in affectations)
+    personnels = affectations.values_list('personnel', flat=True)
+
+    # Calcul des paiements pour ces personnels
+    total_salaires = Paiement.objects.filter(personnel__in=personnels).aggregate(total=Sum('montant'))['total'] or 0
 
     solde_net = total_recettes - (total_depenses + total_salaires)
 

@@ -4,6 +4,8 @@ from .viewstab import tableau
 from .viewsrecette import ajouter_recette,recette
 from .viewsdepense import ajouter_depense,depense
 from .viewsdetaillprojet import detail_projet
+from .viewspersonnel import listepersonnel
+from .viewspaiement import liste_paiement
 urlpatterns = [
     path('', tableau, name='tableau'),
     path('dash/', views.dashboard, name='dashboard'),
@@ -13,6 +15,7 @@ urlpatterns = [
     path('ajouter_depense/', ajouter_depense,name='ajouter_depense'),
     path('affichedepense/', depense,name='depense'),
     path('detailprojet/<int:id>/', detail_projet,name='detailprojet'),
-
+    path('listepersonnel/', listepersonnel,name='listepersonnel'),
+    path('liste_paiement/', liste_paiement,name='liste_paiement'),
 
 ]

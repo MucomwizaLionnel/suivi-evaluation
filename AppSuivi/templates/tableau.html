@@ -22,12 +22,8 @@
         <li><a href="#" class="block text-gray-700 hover:text-blue-500">📊 Evaluations</a></li>
         <li><a href="#" class="block text-gray-700 hover:text-blue-500">🚩 Risques</a></li>
         <li><a href="#" class="block text-gray-700 hover:text-blue-500">📄 Rapports</a></li>
-        <li><a href="#" class="block text-gray-700 hover:text-blue-500">📄 {% for projet in projets %}
-          <li>
-              <a href="{% url 'detailprojet' projet.id %}">{{ projet.nom }}</a>
-          </li>
-      {% endfor %}
-      </a></li>
+        <li><a href="{% url 'listepersonnel' %}" class="block text-gray-700 hover:text-blue-500">👥 Personnel</a></li>
+        <li><a href="{% url 'liste_paiement' %}" class="block text-gray-700 hover:text-blue-500">📄 Liste des paiement</a></li>
         <li><a href="{% url 'depense' %}" class="block text-gray-700 hover:text-blue-500">📄 Depense</a></li>
         <li><a href="{% url 'recette' %}" class="block text-gray-700 hover:text-blue-500">📄 Recette</a></li>
         <li><a href="#" class="block text-gray-700 hover:text-blue-500">👥 Équipe</a></li>

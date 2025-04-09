@@ -21,6 +21,7 @@
                 <th class="py-3 px-4">Recettes</th>
                 <th class="py-3 px-4">Salaires</th>
                 <th class="py-3 px-4">Résultat Net</th>
+                <th class="py-3 px-4">Résultat Total</th> <!-- Nouvelle colonne -->
                 <th class="py-3 px-4">Rentabilité</th>
                 <th class="py-3 px-4">Action</th>
             </tr>
@@ -41,6 +42,13 @@
                     {% endif %}
                 </td>
                 <td class="py-3 px-4">
+                    {% if item.resultat_total >= 0 %}
+                        <span class="text-green-700">+{{ item.resultat_total }} Fbu</span>
+                    {% else %}
+                        <span class="text-red-700">{{ item.resultat_total }} Fbu</span>
+                    {% endif %}
+                </td>
+                <td class="py-3 px-4">
                     {% if item.rentabilite == "Rentable" %}
                         <span class="bg-green-200 text-green-800 py-1 px-2 rounded">✅ Rentable</span>
                     {% elif item.rentabilite == "Non rentable" %}
@@ -56,6 +64,7 @@
             {% endfor %}
         </tbody>
     </table>
+    
 
 </body>
 </html>
